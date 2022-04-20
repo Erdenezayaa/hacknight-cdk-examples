@@ -5,6 +5,7 @@
     "hacknight-cdk-examples": "bin/hacknight-cdk-examples.js"
   },
   "scripts": {
+    "deploy": "cdk deploy --all --require-approval never  --outputs-file ./cdk-outputs.json",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
