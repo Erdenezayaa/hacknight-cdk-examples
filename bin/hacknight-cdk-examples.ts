@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { HacknightCdkExamplesStack } from '../lib/hacknight-cdk-examples-stack';
+import { ServerlessStack } from '../lib/serverless-stack';
 
 const app = new cdk.App();
-new HacknightCdkExamplesStack(app, 'HacknightCdkExamplesStack', {
+new ServerlessStack(app, 'HacknightCdkExamplesStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
