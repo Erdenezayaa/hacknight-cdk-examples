@@ -18,6 +18,7 @@ export class ServerlessStack extends Stack {
     this.createApi();
     this.createTable();
     this.handleCreateBookLambda();
+    this.handleGetBooksLambda();
   }
 
   createApi() {
@@ -59,4 +60,21 @@ export class ServerlessStack extends Stack {
     const lambdaIntegration = new apigateway.LambdaIntegration(fn);
     const method = this.bookApiResource.addMethod('POST', lambdaIntegration);
   }
+
+  handleGetBooksLambda() {
+    const fn = new lambda.Function(this, 'GetBooksLambda', {
+      handler: 'index.handler',
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset(path.join(__dirname, '..', 'lambdas/get-books')),
+      environment: {
+        TABLE_NAME: this.table.tableName,
+      }
+    });
+
+    this.table.grantReadData(fn);
+
+    const lambdaIntegration = new apigateway.LambdaIntegration(fn);
+    const method = this.bookApiResource.addMethod('GET', lambdaIntegration);
+  }
+
 }
